@@ -1,0 +1,1 @@
+ใน Folder natural_images จะมีหลายคลาสถ้าต้องการ train model classification cassava ให้อิง path ไปที่ Folder "cassava" และใช้ train.csv ในการ Label แต่ละโรค
