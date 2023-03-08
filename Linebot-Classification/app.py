@@ -579,6 +579,7 @@ def handle_sticker_message(event):
     )
 
 model = load_model('C:\AI4H\Flask\Line bot\Linebot-Classification\model\CASSAVA_MODEL.h5')
+# model_one_class = load_model('')
 # Other Message Type
 @handler.add(MessageEvent, message=(ImageMessage, VideoMessage, AudioMessage))
 def handle_content_message(event):
@@ -597,6 +598,7 @@ def handle_content_message(event):
             tf.write(chunk)
         tempfile_path = tf.name
 
+    
     dist_path = tempfile_path + '.' + ext
     dist_name = os.path.basename(dist_path)
     os.rename(tempfile_path, dist_path)
@@ -613,6 +615,11 @@ def handle_content_message(event):
     image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
 
     # load the trained convolutional neural network
+    
+    # if (image == cassava):
+      # model disease cassification
+#      else:
+#           Show label no cassava
     
 
     # classify the input image
