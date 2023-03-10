@@ -59,7 +59,7 @@ ngrok.exe http 8000
 ![image](https://user-images.githubusercontent.com/119432919/224399798-c8476737-3297-42bf-b5d2-e94d3e852b72.png)
 5. ไปที่ [Line Developers](https://developers.line.biz/en/) login แล้วไปที่ Linebot>Messaging API
 ![image](https://user-images.githubusercontent.com/119432919/224400035-eb52e1b8-5edc-4a18-b76d-8b1feab65c09.png)
-<br />เอา link ที่ได้จาก ngrok ไปใส่ที่ Webhook URL และต้องตามด้วย /callback จากนั้น Verify เพื่อตรวจสอบ
+เอา link ที่ได้จาก ngrok ไปใส่ที่ Webhook URL และต้องตามด้วย /callback จากนั้น Verify เพื่อตรวจสอบ
 ![Screenshot 2023-03-11 014508](https://user-images.githubusercontent.com/119432919/224400345-fff3153f-e1e0-4892-a923-92e5bc05c7ad.png)
 ![image](https://user-images.githubusercontent.com/119432919/224400611-8387786c-5541-4d68-b60b-93a01c0d4ccf.png)
 ![image](https://user-images.githubusercontent.com/119432919/224400537-4e170b22-0768-4786-89fe-aa58966563f3.png)
