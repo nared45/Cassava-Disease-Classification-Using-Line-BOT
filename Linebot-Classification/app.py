@@ -24,11 +24,16 @@ from keras.models import load_model
 from keras.preprocessing import image
 from tensorflow import keras
 import numpy as np
-import cv2
+# import cv2
 import time
 
 from flask import Flask, request, abort, send_from_directory
 from werkzeug.middleware.proxy_fix import ProxyFix
+
+from tensorflow.keras.applications import ResNet50
+import pickle
+from tensorflow.keras.applications.resnet50 import preprocess_input
+import cv2 as cv
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -66,7 +71,7 @@ if channel_secret is None or channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 
-static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
+static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'output')
 
 
 # function for create tmp dir for download content
@@ -578,8 +583,37 @@ def handle_sticker_message(event):
             sticker_id=event.message.sticker_id)
     )
 
+# Image size 
+image_size = 128
+# load model cassava disease classification
 model = load_model('C:\AI4H\Flask\Line bot\Linebot-Classification\model\CASSAVA_MODEL.h5')
-# model_one_class = load_model('')
+# load model ResNet50 to Feature extraction
+resnet_model = ResNet50(input_shape=(image_size, image_size, 3), weights="imagenet", include_top=False, pooling='avg') 
+#load model one class classification
+occ_model = pickle.load(open("C:\Github\Cassava-Disease-Classification-Using-Line-BOT\OCC-Cassava-TryToTune\model\OCC_SVM_VER_02.sav", 'rb'))
+
+def pred_(img_path):
+    # Load Image
+    image_size = 128
+    test_imgs = cv.imread(img_path)
+    type(test_imgs)
+    test_imgs = cv.cvtColor(test_imgs, cv.COLOR_BGR2RGB)
+    test_imgs = cv.resize(test_imgs, (image_size, image_size)).reshape(-1, image_size, image_size, 3)
+    output = preprocess_input(test_imgs)
+    
+    # Feature Extraction Using RESNET-50
+    img_predict = resnet_model.predict(output)
+
+    # Predict 
+    oc_svm_preds = occ_model.predict(img_predict)
+
+    # output 1 = It's cassava
+#            0 = It isn't cassava
+    if(oc_svm_preds[0]==-1):
+        return 0
+    else:
+        return 1
+
 # Other Message Type
 @handler.add(MessageEvent, message=(ImageMessage, VideoMessage, AudioMessage))
 def handle_content_message(event):
@@ -602,62 +636,57 @@ def handle_content_message(event):
     dist_path = tempfile_path + '.' + ext
     dist_name = os.path.basename(dist_path)
     os.rename(tempfile_path, dist_path)
-    dic = {0 : 'CBB', 1 : 'CBSD', 2 : 'CMD', 3 : 'Healthy'}
-    # load the image
-    image = cv2.imread(dist_path)
+    
+    predict_num = pred_(dist_path)
+    image = cv.imread(dist_path)
     orig = image.copy()
-    # pre-process the image for classification
-    input_size = 224
-    resize = (input_size, input_size)
-    #image = cv2.imread(img_path)
-    image = cv2.resize(image, resize)
-
-    image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
-
-    # load the trained convolutional neural network
     
-    # if (image == cassava):
-      # model disease cassification
-#      else:
-#           Show label no cassava
-    
+    if (predict_num == 1):
 
-    # classify the input image
-    yhat = np.argmax(model.predict(image),axis=1)
-    acc = model.predict(image)[0][yhat[0]]
-    #acc = round(acc*100,2)
+        input_size = 224
+        resize = (input_size, input_size)
 
-    # build the label
-    #yhat = "Santa" if santa > notSanta else "Not Santa"
-    #acc = santa if santa > notSanta else notSanta
-    if (yhat[0] == 0):
-        label = "มีโอกาสที่จะเป็น โรคใบไหม้" 
-    elif (yhat[0] == 1):
-        label = "มีโอกาสที่จะเป็น โรคแผลขีดสีน้ำตาล" 
-    elif (yhat[0] == 2):
-        label = "มีโอกาสที่จะเป็น โรคใบด่าง" 
-    elif (yhat[0] == 3):
-        label = "ใบมันสำปะหลังนี้ไม่มีโรค" 
-    #label = "{}: {:.2f}%".format(dic[yhat[0]], acc * 100)
+        image = cv.resize(image, resize)
 
-    # draw the label on the image
-    output = cv2.resize(orig, resize)
-    #cv2.putText(output, label, (10, 25),  cv2.FONT_HERSHEY_SIMPLEX,0.7, (0, 0, 0), 2)
+        image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
+
+        dic = {0 : 'CBB', 1 : 'CBSD', 2 : 'CMD', 3 : 'Healthy'}
+
+        yhat = np.argmax(model.predict(image),axis=1)
+        acc = model.predict(image)[0][yhat[0]]
+        
+        if (yhat[0] == 0):
+            label = "มีโอกาสที่จะเป็น โรคใบไหม้" 
+        elif (yhat[0] == 1):
+            label = "มีโอกาสที่จะเป็น โรคแผลขีดสีน้ำตาล" 
+        elif (yhat[0] == 2):
+            label = "มีโอกาสที่จะเป็น โรคใบด่าง" 
+        elif (yhat[0] == 3):
+            label = "ใบมันสำปะหลังนี้ไม่มีโรค" 
+
+    else:
+        label = "นี่ไม่ใช่รูปมันสำปะหลัง ไอห่า"
+        
+    resize = (224,224)
+    output = cv.resize(orig, resize)
+
     print(dist_path)
     xf = dist_path.split("\\")
+    print(xf)
     xf = xf[len(xf)-1]
-    cv2.imwrite("static/output/"+xf, output)
-    #time.sleep(3)
+    print(xf)
+    cv.imwrite("static/output/"+xf, output)
+
     url = request.url_root + '/static/output/'+xf
     app.logger.info("url=" + url)
 
 
     line_bot_api.reply_message(
         event.reply_token, [
-            TextSendMessage(text='หมอมันวินิจฉัยว่า: '),
+            TextSendMessage(text='มันคุงวินิจฉัยว่า: '),
             ImageSendMessage(url,url)
             ,TextSendMessage(text=label)
-        ])
+        ])   
 
 
 @handler.add(MessageEvent, message=FileMessage)
