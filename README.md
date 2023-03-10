@@ -62,5 +62,7 @@ ngrok.exe http 8000
 ![Screenshot 2023-03-11 014508](https://user-images.githubusercontent.com/119432919/224400345-fff3153f-e1e0-4892-a923-92e5bc05c7ad.png | width=100)
 ![image](https://user-images.githubusercontent.com/119432919/224400611-8387786c-5541-4d68-b60b-93a01c0d4ccf.png | width=100)
 ![image](https://user-images.githubusercontent.com/119432919/224400537-4e170b22-0768-4786-89fe-aa58966563f3.png | width=100)
-<img src="https://user-images.githubusercontent.com/119432919/224400537-4e170b22-0768-4786-89fe-aa58966563f3.png" width="800" height="800">
+<img src="https://user-images.githubusercontent.com/119432919/224400345-fff3153f-e1e0-4892-a923-92e5bc05c7ad.png" width="800" height="450">
+<img src="https://user-images.githubusercontent.com/119432919/224400611-8387786c-5541-4d68-b60b-93a01c0d4ccf.png" width="800" height="450">
+<img src="https://user-images.githubusercontent.com/119432919/224400537-4e170b22-0768-4786-89fe-aa58966563f3.png" width="800" height="450">
 
