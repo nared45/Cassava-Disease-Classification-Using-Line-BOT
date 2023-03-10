@@ -41,3 +41,17 @@ III. Dataset and Preprocessing
 | Healthy |<a href="https://agrictoday.com.gh/2021/03/19/lifestyle-the-amazing-medicinal-benefits-of-cassava-leaves-that-need-to-be-known/" target="_blank" rel="noreferrer"> <img src="https://agrictoday.com.gh/wp-content/uploads/2021/03/cassava-leaves.jpg" alt="Healthy" width="100" height="100"/> </a>| # | 2577
 
 <p>There are 4 classes of training data, 19,011 photos.</p>
+
+# วิธีติดตั้ง Line Bot
+1.  ไปที่path Cassava-Disease-Classification-Using-Line-BOT/Linebot-Classification แล้วเปิด cmd
+2.  ติดตั้ง library ของ linebot
+```bash
+pip install -r requirements.txt
+```
+3.  Run app.py ใน vscode แล้วดูที่ Terminal ว่า run ที่ port ไหน
+
+4.  เปิด cmd ที่ path เดิมแล้วใช้งาน ngrok.exe http ตามด้วย port ที่ app.py run อยู่
+```bash
+ngrok.exe http 8000
+```
+5. ไปที่ [Line Developers](https://developers.line.biz/en/) login แล้วไปที่ Linebot>Messaging API เอา link ที่ได้จาก ngrok ไปใส่ที่ Webhook URL และต้องตามด้วย /callback จากนั้น Verify เพื่อตรวจสอบ
