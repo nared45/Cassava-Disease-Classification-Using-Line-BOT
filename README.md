@@ -1,5 +1,5 @@
 <h1 align="center" id="title">Digital Image Processing Project: Cassava Disease Classification Using Line-BOT</h1>
-[ ⚠️ this project was in progress... ]
+[ ⚠️ this project was in progress.... ]
 <p id="description">Project นี้เป็นส่วนหนึ่งของรายวิชา Digital Image Processing Project 02204412-60</p>
 
 ## สมาชิกในทีม
