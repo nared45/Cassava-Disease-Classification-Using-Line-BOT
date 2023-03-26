@@ -586,11 +586,11 @@ def handle_sticker_message(event):
 # Image size 
 image_size = 128
 # load model cassava disease classification
-model = load_model('C:\AI4H\Flask\Line bot\Linebot-Classification\model\CASSAVA_MODEL.h5')
+model = load_model('C:/AI4H/Flask/Line bot/Linebot-Classification/model/CASSAVA_MODEL.h5')
 # load model ResNet50 to Feature extraction
 resnet_model = ResNet50(input_shape=(image_size, image_size, 3), weights="imagenet", include_top=False, pooling='avg') 
 #load model one class classification
-occ_model = pickle.load(open("C:\Github\Cassava-Disease-Classification-Using-Line-BOT\OCC-Cassava-TryToTune\model\OCC_SVM_VER_02.sav", 'rb'))
+occ_model = pickle.load(open("C:/Github/Cassava-Disease-Classification-Using-Line-BOT/model/OCC_SVM_VER_SUPERBIGDATA.sav", 'rb'))
 
 def pred_(img_path):
     # Load Image
