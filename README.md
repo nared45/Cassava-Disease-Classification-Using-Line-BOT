@@ -1,5 +1,5 @@
 <h1 align="center" id="title">Digital Image Processing Project: Cassava Disease Classification Using Line-BOT</h1>
-[ ⚠️ this project was in progress... ]
+[ ⚠️ this project was in progress.... ]
 <p id="description">Project นี้เป็นส่วนหนึ่งของรายวิชา Digital Image Processing Project 02204412-60</p>
 
 ## สมาชิกในทีม
@@ -16,10 +16,10 @@
 - [x] I. วางแผนการทำงานโครงการ
 - [x] II. Paper survey (Model classification, One class classification, Cassava Disease)
 - [x] III. Dataset and Preprocessing
-- [ ] IV. Train Model / Evaluate (Model Classification)
-- [ ] V   Train Model / Evaluate (Model One class classification)
-- [ ] V.  Line-BOT UI Design
-- [ ] VI. Deploy ML model in Line-BOT
+- [x] IV. Train Model / Evaluate (Model Classification)
+- [x] V   Train Model / Evaluate (Model One class classification)
+- [x] V.  Line-BOT UI Design
+- [x] VI. Deploy ML model in Line-BOT
 
 ## รายละเอียดแต่ละงาน
 I. วางแผนการทำงานโครงการ
