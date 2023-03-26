@@ -665,7 +665,7 @@ def handle_content_message(event):
             label = "ใบมันสำปะหลังนี้ไม่มีโรค" 
 
     else:
-        label = "นี่ไม่ใช่รูปมันสำปะหลังนะครับ"
+        label = "นี่ไม่ใช่รูปใบมันสำปะหลังนะครับ"
         
     resize = (224,224)
     output = cv.resize(orig, resize)
